@@ -42,16 +42,36 @@ class Solution
     public static ArrayList<Integer> kLargest(int arr[], int n, int k)
     {
         PriorityQueue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> minheap = new PriorityQueue<>();
         
         ArrayList<Integer> max = new ArrayList<>();
         
-        for(int i=0;i<n;i++){
-            maxheap.add(arr[i]);
+        // for(int i=0;i<n;i++){
+        //     maxheap.add(arr[i]);
+        // }
+        
+        // for(int i=0;i<k;i++){
+        //     max.add(maxheap.remove());
+        // }
+        
+        for(int i=0;i<k;i++){
+            minheap.add(arr[i]);
+        }
+        
+        
+        for(int i=k;i<n;i++){
+            if(arr[i]>minheap.peek()){
+                minheap.add(arr[i]);
+                minheap.remove();
+            }
         }
         
         for(int i=0;i<k;i++){
-            max.add(maxheap.remove());
+            max.add(minheap.remove());
         }
+        
+        Collections.reverse(max);
+        
         
         return max;
     }
