@@ -9,8 +9,8 @@ class Solution {
             min = Math.min(val,min);
         }
         
-        // int range = max - min + 1;
-        int count[] = new int[max - min + 1];
+        int range = max - min + 1;
+        int count[] = new int[range];
         int output[] = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             count[arr[i] - min]++;
