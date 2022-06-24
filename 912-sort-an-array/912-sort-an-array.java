@@ -1,8 +1,17 @@
 class Solution {
    
     public int[] sortArray(int[] arr) {
-        int max = Arrays.stream(arr).max().getAsInt();
-        int min = Arrays.stream(arr).min().getAsInt();
+        // int max = Arrays.stream(arr).max().getAsInt();
+        // int min = Arrays.stream(arr).min().getAsInt();
+        
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        
+        for(int val:arr){
+            max = Math.max(val,max);
+            min = Math.min(val,min);
+        }
+        
         int range = max - min + 1;
         int count[] = new int[range];
         int output[] = new int[arr.length];
