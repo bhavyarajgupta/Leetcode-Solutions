@@ -19,12 +19,13 @@ class Node {
 
 class Solution {
     public List<List<Integer>> levelOrder(Node root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if(root == null) return res; 
+      
+        if(root == null) return new ArrayList<>(); 
+        
         Queue<Node> q = new ArrayDeque<>();
         q.add(root);
        
-        
+        List<List<Integer>> res = new ArrayList<>();
         
         while(q.size()>0){
             List <Integer> store = new ArrayList<>();
