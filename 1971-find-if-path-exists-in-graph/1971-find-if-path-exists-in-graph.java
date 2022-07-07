@@ -30,6 +30,28 @@ class Solution {
         return false;
     }
     
+    
+    public boolean BFS(int src , int dest,Graph g){
+        Queue<Integer> q = new ArrayDeque<>();
+        boolean[] vis = new boolean[g.adj.length];
+        q.add(src);
+        
+        while(q.size() > 0){
+            int front = q.remove();
+            if(vis[front] == true) continue;
+            if(front == dest) return true;
+            vis[front] = true;
+            
+            for(Integer nbr: g.adj[front]){
+                if(vis[nbr] == false){
+                    q.add(nbr);   
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         Graph g = new Graph(n);
         
@@ -39,7 +61,8 @@ class Solution {
         
         boolean []vis = new boolean[n];
         
-        return DFS(source,destination,g,vis);
+        // return DFS(source,destination,g,vis);
+        return BFS(source , destination,g);
         
     }
 }
