@@ -20,7 +20,8 @@ class Solution {
             return newroot;
         }
         
-        if(root.val == val) return root;
+        if(root.val == val) return root; // dont intsert node on equal
+        
         if(root.val > val){
             root.left = insertIntoBST(root.left,val);
         }else{
