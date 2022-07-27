@@ -38,7 +38,9 @@ class Solution {
         while(left<right){
             int sum = store.get(left)+store.get(right);
             if(sum == k){
-                return true;
+                left++;
+                right--;
+                return true;                
             }else if(sum < k){
                 left++;
             }else{
