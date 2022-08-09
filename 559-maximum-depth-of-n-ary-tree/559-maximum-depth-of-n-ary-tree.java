@@ -22,24 +22,52 @@ class Solution {
         if(root == null) return 0;
         
         Queue<Node> q = new ArrayDeque<>();
+        Node delimeter = new Node(-1);
         
-         q.add(root);
+        q.add(root);
+        q.add(delimeter);
         
-        int max =0;
+        int size = 0;
+        
         while(q.size()>0){
-            int counter = q.size();
-        for(int i=0;i<counter;i++){
-          Node curr = q.remove();
+            
+            Node curr = q.remove();
+
+            if(curr.val == -1){
+                size++;
+                
+                if(q.size() > 0){
+                    q.add(delimeter);
+                }
+            }else{
+                
+                for(Node child: curr.children){
+                    q.add(child);
+                }
+            }
+        }
+        
+        return size;
+        
+//          q.add(root);
+        
+//         int max =0;
+//         while(q.size()>0){
+//             int counter = q.size();
+//         for(int i=0;i<counter;i++){
+//           Node curr = q.remove();
     
-          for(Node child:curr.children){
-            q.add(child);
-          }
+//           for(Node child:curr.children){
+//             q.add(child);
+//           }
             
             
-        }
-            max = max+1;
+//         }
+//             max = max+1;
             
-        }
-        return max;
+//         }
+        
+        
+        // return max;
     }
 }
