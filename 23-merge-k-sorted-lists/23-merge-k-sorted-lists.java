@@ -36,14 +36,35 @@ class Solution {
         
         return dummy.next;
     }
+    
+    public ListNode helper(ListNode lists[],int left,int right){
+        if(left == right) return lists[left];
+        
+        int mid = (left+right)/2;
+        
+        ListNode lefted = helper(lists,left,mid);
+        ListNode righted = helper(lists,mid+1,right);
+        
+        return merge2LL(lefted,righted);
+    }
+    
     public ListNode mergeKLists(ListNode[] lists) {
         
-        ListNode merge = null;
+        if(lists.length == 0) return null;
         
-        for(int i=0;i<lists.length;i++){
-            merge = merge2LL(lists[i],merge);
-        }
+        return helper(lists , 0 ,lists.length-1);
         
-        return merge;
+        
     }
+    
+//     public ListNode mergeKLists(ListNode[] lists) {
+        
+//         ListNode merge = null;
+        
+//         for(int i=0;i<lists.length;i++){
+//             merge = merge2LL(lists[i],merge);
+//         }
+        
+//         return merge;
+//     }
 }
