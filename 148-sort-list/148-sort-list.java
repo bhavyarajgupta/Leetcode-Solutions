@@ -56,10 +56,10 @@ class Solution {
         ListNode midnext = mid.next;
         mid.next = null;
         
-        ListNode temp = sortList(head);
-        ListNode temp2 = sortList(midnext);
+        ListNode leftPart = sortList(head);
+        ListNode rightPart = sortList(midnext);
         
-        ListNode merged  = merge2LL(temp,temp2);
+        ListNode merged  = merge2LL(leftPart,rightPart);
         
         return merged;
     }
