@@ -56,7 +56,6 @@ class Solution {
         ListNode midnext = mid.next;
         mid.next = null;
         
-        System.out.println(head.val);
         ListNode temp = sortList(head);
         ListNode temp2 = sortList(midnext);
         
