@@ -9,65 +9,52 @@
  * }
  */
 class Solution {
-    
     public ListNode mid(ListNode head){
-        ListNode fast = head.next;
         ListNode slow = head;
+        ListNode fast= head.next;
         
         while(fast != null && fast.next != null){
-            fast = fast.next.next;
             slow = slow.next;
+            fast = fast.next.next;
         }
         
         return slow;
+        
     }
-   
+    
     public ListNode reverse(ListNode head){
-        if(head == null || head.next == null) return head;
         
-        ListNode temp = reverse(head.next);
+        ListNode curr = head;
+        ListNode prev = null;
         
-        head.next.next = head;
-        head.next = null;
+        while(curr != null){
+            ListNode ahead = curr.next;
+            curr.next = prev;
+            prev  = curr;
+            curr = ahead;
+        }
         
-        return temp;
+        return prev;
+        
     }
-
+        
     public boolean isPalindrome(ListNode head) {
-        
-//         ArrayList<Integer> list = new ArrayList<>();
-        
-//         while(head != null){
-//             list.add(head.val);
-//             head = head.next;
-//         }
-        
-        
-//         int i =0;
-//         int j= list.size()-1;
-        
-//         while(i<j){
-//             if(list.get(i) != list.get(j)){
-//                 return false;
-//             }
-//             i++;
-//             j--;
-//         }
-        
-        // return true;
         
         ListNode mid = mid(head);
         
-        ListNode reverse = reverse(mid.next);
+        ListNode aftermid = mid.next;
         mid.next = null;
-               
-        while(head != null && reverse != null){
-            if(head.val != reverse.val) return false;
+        
+        ListNode reversedaftermid = reverse(aftermid);
+        
+        while(head != null && reversedaftermid != null){
+            if(head.val != reversedaftermid.val)
+                return false;
             
             head = head.next;
-            reverse = reverse.next;
+            reversedaftermid = reversedaftermid.next;
         }
-        return true;       
         
+        return true;        
     }
 }
