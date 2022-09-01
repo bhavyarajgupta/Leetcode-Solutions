@@ -15,26 +15,32 @@
  */
 class Solution {
     
-    int count = 0;
+    // int count = 0;
     
-    public void treerec(TreeNode root,int max){
-        if(root == null) return;
+    public int treerec(TreeNode root,int max){
+        if(root == null) return 0;
         
+//         if(root.val >= max){
+//             count++;
+//             max = root.val;
+//         }
+        
+        int count = 0;
         if(root.val >= max){
-            count++;
-            max = root.val;
+            count = 1;
+            max  = root.val;
         }
         
-        treerec(root.left,max);
-        treerec(root.right,max);
+        
+        return count + treerec(root.left,max)+treerec(root.right,max);
         
     }
     
     public int goodNodes(TreeNode root) {
         
-        treerec(root,root.val);
+      return  treerec(root,root.val);
         
-        return count;
+    
         
     }
 }
