@@ -19,26 +19,32 @@ class Solution {
         if(root == null) return 0;
         
         int left = height(root.left);
+        if(left == -1) return -1;
         int right = height(root.right);
+        if(right == -1) return -1;
+        
+        if(Math.abs(left-right) > 1) return -1;
         
         return Math.max(left,right)+1;
         
     }
     public boolean isBalanced(TreeNode root) {
         
-        if(root == null) return  true;
+//         if(root == null) return  true;
         
-        int left = height(root.left);
-        int right = height(root.right);
+//         int left = height(root.left);
+//         int right = height(root.right);
         
-        if(Math.abs(left-right) > 1) return  false;
+//         if(Math.abs(left-right) > 1) return  false;
         
-        boolean lh = isBalanced(root.left);
-        boolean rh = isBalanced(root.right);
+//         boolean lh = isBalanced(root.left);
+//         boolean rh = isBalanced(root.right);
         
-        if(!lh || !rh) return false;
+//         if(!lh || !rh) return false;
         
-        return true;
+//         return true;
+        
+        return height(root) != -1;
         
     }
 }
