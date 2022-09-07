@@ -15,27 +15,27 @@
  */
 class Solution {
     
-    String ans="";
+    StringBuilder ans = new StringBuilder("");
     
     public void preOrd(TreeNode root){
         if(root == null) return;
         if(root.left == null && root.right == null){
-            ans+= root.val;
+            ans.append(root.val);
             return;
         }
         
-        ans+=root.val+"";
-        if(root.left == null) ans+="()";
+        ans.append(root.val);
+        if(root.left == null) ans.append("()");
         else{
-            ans+= "(";
+            ans.append("(");
             preOrd(root.left);
-            ans+=")";
+            ans.append(")");
         }
         
         if(root.right !=null){
-            ans+= "(";
+            ans.append("(");
             preOrd(root.right);
-            ans+=")";
+            ans.append(")");
         }       
         
     }
@@ -44,6 +44,6 @@ class Solution {
         
         preOrd(root);
         
-        return ans;
+        return ans.toString();
     }
 }
