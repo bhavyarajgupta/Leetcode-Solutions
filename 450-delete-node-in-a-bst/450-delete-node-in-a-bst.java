@@ -14,45 +14,36 @@
  * }
  */
 class Solution {
-    public int max(TreeNode node){
-       if(node.right != null){
-            return max(node.right);
+    
+    int Max(TreeNode node){
+        if(node.right != null){
+            return Max(node.right);
         }
+        
         return node.val;
     }
     
     public TreeNode deleteNode(TreeNode root, int key) {
-        if (root == null){
-            return null;
-        }
+        
+        if(root == null) return null;
         
         if(root.val == key){
-            if(root.left == null && root.right == null){
-               //no leaf node
-                return null;
-            }else if(root.left == null){
-                // no right child
-                
-                return root.right;
-            }else if(root.right == null){
-                //no left child
-                
-                return root.left;
-            }else{
-                
-                //both child exist 
-                int inorderleftpredessor = max(root.left);
-                System.out.println(inorderleftpredessor);
-                root.val = inorderleftpredessor;
-                root.left = deleteNode(root.left,inorderleftpredessor);
-                
+            if(root.left == null && root.right == null) return null;
+            else if(root.left == null) return root.right;
+            else if(root.right == null) return root.left;
+            else{
+                int inOrderleftpre = Max(root.left);
+                root.val = inOrderleftpre;
+                root.left = deleteNode(root.left,inOrderleftpre);
             }
-        }else if(root.val < key){
-             root.right = deleteNode(root.right,key);
+            
+        }else if(key < root.val){
+            root.left = deleteNode(root.left,key);
         }else{
-             root.left = deleteNode(root.left,key);
+            root.right = deleteNode(root.right,key);
         }
         
         return root;
+        
     }
 }
