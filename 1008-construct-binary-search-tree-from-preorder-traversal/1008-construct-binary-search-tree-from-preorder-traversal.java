@@ -15,19 +15,21 @@
  */
 class Solution {
     
-     TreeNode bst(int[] pre,int Ubound,int[] i){
-          if(i[0] == pre.length || pre[i[0]]>Ubound) return null;
+    int i =0;
+    
+    TreeNode bst(int[] pre,int Ubound){
+          if(i == pre.length || pre[i]>Ubound) return null;
          
-         TreeNode root = new TreeNode(pre[i[0]++]);
-         root.left = bst(pre,root.val,i);
-         root.right = bst(pre,Ubound,i);
+         TreeNode root = new TreeNode(pre[i++]);
+         root.left = bst(pre,root.val);
+         root.right = bst(pre,Ubound);
          
          return root;
     }
     
     public TreeNode bstFromPreorder(int[] preorder) {
         
-        return bst(preorder,Integer.MAX_VALUE,new int[]{0});
+        return bst(preorder,Integer.MAX_VALUE);
         
         
     }
