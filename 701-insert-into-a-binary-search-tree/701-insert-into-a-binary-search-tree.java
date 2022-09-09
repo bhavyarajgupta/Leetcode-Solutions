@@ -13,14 +13,14 @@
  *     }
  * }
  */
-class Solution {
+class Solution {    
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if(root == null){
-            TreeNode newroot = new TreeNode(val);
-            return newroot;
+            TreeNode temp = new TreeNode(val);
+            return temp;
         }
         
-        if(root.val == val) return root; // dont intsert node on equal
+        if(root.val == val) return root;
         
         if(root.val > val){
             root.left = insertIntoBST(root.left,val);
