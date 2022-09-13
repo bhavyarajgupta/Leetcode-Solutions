@@ -15,27 +15,29 @@
  */
 class BSTIterator {
     
-    List<TreeNode> inord = new ArrayList<>();
-    int idx =0;
+    // List<TreeNode> inord = new ArrayList<>();
+    Stack<TreeNode> partialinord = new Stack<>();
 
-    void inorder(TreeNode root){
-        if(root == null) return;
+    void parinorder(TreeNode root){
         
-        inorder(root.left);
-        inord.add(root);
-        inorder(root.right);
+        while(root != null){
+            partialinord.push(root);
+            root = root.left;
+        }
     }
     public BSTIterator(TreeNode root) {
-        inorder(root);
+        parinorder(root);
         
     }
     
     public int next() {
-        return inord.get(idx++).val;
+        TreeNode par = partialinord.pop();
+        parinorder(par.right);
+        return par.val;
     }
     
     public boolean hasNext() {
-        return idx<inord.size();
+        return partialinord.size() > 0;
     }
 }
 
