@@ -24,8 +24,8 @@ class Solution {
         if(root.left == null && root.right == null){
             boolean flag = true;
             int odd = 0;
-            for(int val:map.keySet()){
-                if((map.get(val) & 1) == 1){
+            for(int i=1; i<=9;i++){
+                if((map.getOrDefault(i,0) & 1) == 1){
                     odd++;
                     if(odd > 1 ){
                         flag = false;
