@@ -18,19 +18,20 @@ class Solution {
             count++;
         }
         
-        ListNode prev = temp;
-        while(prev != null && count <= b+1){
+        ListNode prev = temp.next;
+        while(prev != null && count < b){
             prev = prev.next;
             count++;
         }
         
-        ListNode temp2 = list2;
-        while(temp2.next != null){
-            temp2 = temp2.next;
+        // ListNode temp2 = list2;
+        temp.next = list2;
+        while(temp.next != null){
+            temp = temp.next;
         }
         
-        temp2.next = prev;
-        temp.next = list2;
+        temp.next = prev.next;
+        // temp.next = list2;
         
         return list1;
     }
