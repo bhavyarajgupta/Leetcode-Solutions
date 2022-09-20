@@ -23,53 +23,35 @@ class Node {
 
 class Solution {
     public Node connect(Node root) {
-        
         if(root == null || root.left == null || root.right == null){
             return root;
         }
         
-//         root.left.next = root.right; // connection
-//         while(root.next != null)
-//             root.right.next = root.next.left;       
+        Node head = root;
         
-//         connect(root.left);
-//         connect(root.right);
-        
-//         return root;
-        Queue<Node> q  = new LinkedList<>();
-        q.add(root);
-        
-        Node temp = new Node(-1);
-        temp.right = null;
-        
-        while(!q.isEmpty()){
-            int size = q.size();
-            Node ans = new Node(-1);
-            // Node tail = ans;
+        while(head != null){
+            Node dummy = new Node(-1);
+            Node tail = dummy;
             
-            for(int i =0;i<size;i++){
-                Node par = q.remove();
-                
-                ans.next = par;
-                ans = ans.next;
-               
-                if(par.left != null){
-                    q.add(par.left);
+            while(head != null){
+                   
+                if(head.left != null){
+                    tail.next = head.left;
+                    tail = tail.next;
                 }
                 
-                if(par.right != null){
-                    q.add(par.right);
+                if(head.right != null){
+                    tail.next = head.right;
+                    tail = tail.next;
                 }
                 
+                head = head.next;
             }
-           
             
+            head = dummy.next;
            
         }
         
         return root;
-        
-        
-        
     }
 }
