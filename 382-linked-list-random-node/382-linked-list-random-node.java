@@ -10,29 +10,26 @@
  */
 class Solution {
 
-    
-    ArrayList<Integer> store;
+    ListNode head = null;
+    Random rand = null;
     public Solution(ListNode head) {
-        
-        store = new ArrayList<>();
-        
-        while(head != null){
-            store.add(head.val);
-            head = head.next;
-        }
-        
-    }
-    
-    public int getRandomNumberUsingNextInt(int min, int max) {
-        Random random = new Random();
-        return random.nextInt(max - min) + min;
+        this.head = head;
+        rand = new Random();
     }
     
     public int getRandom() {
+        int res =-1;
+        ListNode t =head;
         
-        int rndom = getRandomNumberUsingNextInt(0,store.size());
-
-        return store.get(rndom);
+        for(int i=1;t != null;i++){
+            if(rand.nextInt(i) == i-1){
+                res = t.val;
+            }
+            
+            t = t.next;
+        }
+        
+        return res;
     }
 }
 
