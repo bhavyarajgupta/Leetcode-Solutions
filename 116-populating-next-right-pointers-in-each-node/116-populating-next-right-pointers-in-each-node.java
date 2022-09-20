@@ -45,13 +45,13 @@ class Solution {
         while(!q.isEmpty()){
             int size = q.size();
             Node ans = new Node(-1);
-            Node tail = ans;
+            // Node tail = ans;
             
             for(int i =0;i<size;i++){
                 Node par = q.remove();
                 
-                tail.next = par;
-                tail = tail.next;
+                ans.next = par;
+                ans = ans.next;
                
                 if(par.left != null){
                     q.add(par.left);
