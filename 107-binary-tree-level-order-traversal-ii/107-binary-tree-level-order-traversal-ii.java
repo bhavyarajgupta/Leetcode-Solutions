@@ -36,10 +36,10 @@ class Solution {
                 
             }
             
-            ans.add(temp);
+            ans.add(0,temp);
         }
         
-        Collections.reverse(ans);
+        // Collections.reverse(ans);
         
         return ans;
     }
