@@ -17,8 +17,8 @@ class Solution {
             ans.append(" ");
         }
         
-        ans.deleteCharAt(ans.length()-1);
+        // ans.deleteCharAt(ans.length()-1);
         
-        return ans.toString();
+        return ans.toString().trim();
     }
 }
