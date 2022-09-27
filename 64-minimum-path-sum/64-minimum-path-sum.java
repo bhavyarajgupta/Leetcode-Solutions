@@ -21,13 +21,15 @@ class Solution {
             for(int j=0;j<grid[0].length;j++){
                 if(i == 0 && j == 0) dp[i][j] = grid[0][0];
                 else{
-                    int left = Integer.MAX_VALUE;
-                    int up = Integer.MAX_VALUE;
-                    
-                    if(i>0) up = grid[i][j] + dp[i-1][j];
-                    if(j>0) left = grid[i][j] + dp[i][j-1];
-                    
-                    dp[i][j] = Math.min(left,up);
+                    int up = grid[i][j];
+                    if(i>0) up += dp[i-1][j];
+                    else up += (int)Math.pow(10,9);
+
+                    int left = grid[i][j];
+                    if(j>0) left+=dp[i][j-1];
+                    else left += (int)Math.pow(10,9);
+
+                    dp[i][j] = Math.min(up,left);
                 }  
             }
         }
