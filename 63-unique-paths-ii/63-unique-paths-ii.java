@@ -18,23 +18,28 @@ class Solution {
     
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         
-        int [][] dp = new int[obstacleGrid.length][obstacleGrid[0].length];
+        int prev[] = new int[obstacleGrid.length];
+        Arrays.fill(prev,0);
         
         for(int i=0;i<obstacleGrid.length;i++){
+            int cur[] = new int[obstacleGrid[0].length];
+            Arrays.fill(cur,0);
             for(int j=0;j<obstacleGrid[0].length;j++){
-                if(obstacleGrid[i][j] == 1) dp[i][j] = 0;
-                else if(i == 0 && j == 0) dp[i][j] = 1;
+                if(obstacleGrid[i][j] == 1) cur[j] = 0;
+                else if(i == 0 && j == 0) cur[j] = 1;
                 else{
                     int up =0,left =0;
-                    if(i > 0) up = dp[i-1][j];
-                    if(j > 0) left = dp[i][j-1];
+                    if(i > 0) up = prev[j];
+                    if(j > 0) left = cur[j-1];
                     
-                    dp[i][j] = up+left;
+                    cur[j] = up+left;
                 }
             }
+            
+            prev = cur;
         }
         
-        return dp[obstacleGrid.length-1][obstacleGrid[0].length-1];       
+        return prev[obstacleGrid[0].length-1];       
         
     }
 }
