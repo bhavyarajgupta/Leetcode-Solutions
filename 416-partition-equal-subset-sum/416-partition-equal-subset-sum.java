@@ -37,20 +37,37 @@ class Solution {
         
         if(sum % 2 != 0){
             return false;
-        }else{
-            int dp[][] = new int[nums.length][(sum/2)+1];
+        }
+            boolean dp[][] = new boolean[nums.length][(sum/2)+1];
             
-            for(int i[]:dp){
-                Arrays.fill(i,-1);
-            }
+            int targ = sum/2;
             
-            return memo(nums.length-1,nums,sum/2,dp);
+            
+            for(int i=0;i<nums.length;i++)
+                dp[i][0] = true;
+            
+            if(nums[0]<=targ)
+             dp[0][nums[0]] = true;
+        
+            for(int i=1;i<nums.length;i++){
+                for(int j=1;j<=targ;j++){
+                    
+                    boolean nottake = dp[i-1][j];
+                    boolean take = false;
+
+                    if(nums[i] <= j){
+                        take = dp[i-1][j-nums[i]];
+                    }
+
+                    dp[i][j] = nottake||take ;
+                               
+                }
+            
             
         }
         
         
-        
-        
+        return dp[nums.length-1][sum/2];
         
     }
 }
