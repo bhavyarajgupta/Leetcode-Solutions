@@ -16,32 +16,52 @@
 class Solution {
     int cam = 0;
     
-    private void dfs(TreeNode root,TreeNode par,HashSet<TreeNode> covered){
+//     private void dfs(TreeNode root,TreeNode par,HashSet<TreeNode> covered){
         
-        if(root == null) return;
+//         if(root == null) return;
         
-        dfs(root.left,root,covered);
-        dfs(root.right,root,covered);
+//         dfs(root.left,root,covered);
+//         dfs(root.right,root,covered);
         
-        if(par == null && !covered.contains(root) || !covered.contains(root.left) || !covered.contains(root.right) ){
+//         if(par == null && !covered.contains(root) || !covered.contains(root.left) || !covered.contains(root.right) ){
+//             cam++;
+//             covered.add(par);
+//             covered.add(root.left);
+//             covered.add(root.right);
+//             covered.add(root);
+//         }
+        
+//     }
+    
+    private int dfs(TreeNode root){
+        if(root == null) return 1;
+        
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        
+        if(left == 0 || right == 0){
             cam++;
-            covered.add(par);
-            covered.add(root.left);
-            covered.add(root.right);
-            covered.add(root);
+            return 2; //camera laga diya
+        }
+        else if(left == 2 || right == 2){
+            // vha par pass ma camera laga hua ha 
+            return 1;
         }
         
+        return 0;
+        
+        
     }
-    
+
     public int minCameraCover(TreeNode root) {
         
-        HashSet<TreeNode> covered = new HashSet<>();
+//         HashSet<TreeNode> covered = new HashSet<>();
         
-        covered.add(null);
+//         covered.add(null);
         
-        dfs(root,null,covered);
+        int ans = dfs(root);
         
-        return cam;
+        return ans == 0?cam+1:cam;
         
     }
 }
