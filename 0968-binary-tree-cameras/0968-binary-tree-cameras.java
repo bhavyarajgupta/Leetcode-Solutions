@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    int cam = 0;
+    // int cam = 0;
     
 //     private void dfs(TreeNode root,TreeNode par,HashSet<TreeNode> covered){
         
@@ -33,22 +33,34 @@ class Solution {
         
 //     }
     
-    private int dfs(TreeNode root){
-        if(root == null) return 1;
-        
-        int left = dfs(root.left);
-        int right = dfs(root.right);
-        
-        if(left == 0 || right == 0){
-            cam++;
-            return 2; //camera laga diya
+    class Pair{
+        int status;
+        int camera;
+        public Pair(int s,int c){
+            status = s;
+            camera = c;
         }
-        else if(left == 2 || right == 2){
+        
+    }
+    
+    private Pair dfs(TreeNode root){
+        if(root == null) return new Pair(1,0) ;
+        
+        Pair left = dfs(root.left);
+        Pair right = dfs(root.right);
+        
+        int total = left.camera+right.camera;
+        
+        if(left.status == 0 || right.status == 0){
+            total++;
+            return new Pair(2,total); //camera laga diya
+        }
+        else if(left.status == 2 || right.status == 2){
             // vha par pass ma camera laga hua ha 
-            return 1;
+            return new Pair(1,total);
         }
         
-        return 0;
+        return new Pair(0,total);
         
         
     }
@@ -59,9 +71,9 @@ class Solution {
         
 //         covered.add(null);
         
-        int ans = dfs(root);
+        Pair ans = dfs(root);
         
-        return ans == 0?cam+1:cam;
+        return ans.status == 0?ans.camera+1:ans.camera;
         
     }
 }
