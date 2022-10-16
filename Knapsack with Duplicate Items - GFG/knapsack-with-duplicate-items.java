@@ -53,8 +53,20 @@ class Solution{
     {
         int dp[][]= new int[N][W+1];
         
-        for(int i[]:dp) Arrays.fill(i,-1);
+        for(int i=0;i<= W;i++){
+            dp[0][i] = ((int)(i/wt[0]))*val[0];
+        }
         
-        return recmemo(N-1,W,val,wt,dp);
+        for(int i=1;i<N;i++){
+            for(int j = 0;j<= W;j++){
+                int ntake = dp[i-1][j];
+                int take = 0;
+                if(wt[i] <= j) take = val[i]+dp[i][j-wt[i]];
+        
+                dp[i][j] = Math.max( ntake ,take); 
+            }
+        }
+        
+        return dp[N-1][W];
     }
 }
