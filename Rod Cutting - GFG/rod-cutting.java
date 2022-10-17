@@ -41,9 +41,27 @@ class Solution{
     public int cutRod(int price[], int n) {
        int dp[][] = new int [n][n+1];
         
-        for(int i[]:dp)
-            Arrays.fill(i,-1);
+        // for(int i[]:dp)
+        //     Arrays.fill(i,-1);
         
-        return memorec(n-1,n,price,dp);
+        // return memorec(n-1,n,price,dp);
+        
+        for(int i =0;i<=n;i++){
+            dp[0][i] = i*price[0];
+        }
+        
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=n;j++)
+            {
+                int ntake = dp[i-1][j];
+                int take = Integer.MIN_VALUE;
+                int rodlen = i+1;
+                if(rodlen<=j) take = price[i]+dp[i][j-rodlen];
+                
+                dp[i][j] = Math.max(take,ntake); 
+            }
+        }
+        
+        return dp[n-1][n];
     }
 }
