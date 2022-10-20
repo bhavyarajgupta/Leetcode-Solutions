@@ -18,35 +18,25 @@ class Solution {
         
     }
     
+    int prime =(int)(Math.pow(10,9)+7);
     public int numDistinct(String s, String t) {
         int n = s.length();
         int m = t.length();
         
-        int dp[][] = new int [n+1][m+1];
-        
-        for(int k[]:dp) Arrays.fill(k,0);
-        for(int i=0;i<=n;i++){
-            dp[i][0] = 1;
-        }
-        // for(int j=0;j<=m;j++){
-        //     dp[0][j] = 0;
-        // }
-        
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=m;j++){
-                int ds = 0;
-                
-                if(s.charAt(i-1) == t.charAt(j-1)){
-                    ds = dp[i-1][j-1] + dp[i-1][j];
-                }else{
-                    ds = dp[i-1][j];
-                }
-                
-                dp[i][j] = ds;
+         int[] prev=new int[m+1];
+        prev[0]=1;
+    
+        for(int i=1;i<n+1;i++){
+            for(int j=m;j>=1;j--){ // Reverse direction
+
+                if(s.charAt(i-1)==t.charAt(j-1))
+                    prev[j] = (prev[j-1] + prev[j])%prime;
+                else
+                    prev[j] = prev[j]; //can omit this statemwnt
             }
         }
-        
-        return dp[n][m];
+
+        return prev[m];
         
     }
 }
