@@ -29,16 +29,11 @@ class Solution {
             Arrays.fill(i,0);
         
         for(int idx = prices.length-1;idx>=0;idx--){
-            for(int buy=0;buy<= 1;buy++){
-                int max = 0;
-                if(buy == 1){
-                    max = Math.max((-prices[idx]+dp[idx+1][0]),dp[idx+1][1]);
-                }else{
-                    max = Math.max((prices[idx]+dp[idx+2][1]),dp[idx+1][0]);
-                }
+               
+            dp[idx][1] = Math.max((-prices[idx]+dp[idx+1][0]),dp[idx+1][1]);
 
-                dp[idx][buy] = max;
-            }
+            dp[idx][0] = Math.max((prices[idx]+dp[idx+2][1]),dp[idx+1][0]);
+                
         }
         
         return dp[0][1];
