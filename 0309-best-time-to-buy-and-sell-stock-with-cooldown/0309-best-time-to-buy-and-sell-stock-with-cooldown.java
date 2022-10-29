@@ -21,13 +21,26 @@ class Solution {
     
     public int maxProfit(int[] prices) {
         
-        int dp[][] = new int[prices.length][2];
+        int dp[][] = new int[prices.length+2][2];
         
+        
+        //Base case put everything as 0
         for(int i[]:dp)
-            Arrays.fill(i,-1);
+            Arrays.fill(i,0);
         
+        for(int idx = prices.length-1;idx>=0;idx--){
+            for(int buy=0;buy<= 1;buy++){
+                int max = 0;
+                if(buy == 1){
+                    max = Math.max((-prices[idx]+dp[idx+1][0]),dp[idx+1][1]);
+                }else{
+                    max = Math.max((prices[idx]+dp[idx+2][1]),dp[idx+1][0]);
+                }
+
+                dp[idx][buy] = max;
+            }
+        }
         
-        return memo(0,1,prices,dp);
-                
+        return dp[0][1];
     }
 }
