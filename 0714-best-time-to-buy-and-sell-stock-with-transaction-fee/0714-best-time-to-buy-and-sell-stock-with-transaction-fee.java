@@ -18,14 +18,22 @@ class Solution {
     }
     public int maxProfit(int[] prices, int fee) {
         
-        int dp[][] = new int[prices.length][2];
+        int dp[][] = new int[prices.length+2][2];
         
         
         //Base case put everything as 0
         for(int i[]:dp)
-            Arrays.fill(i,-1);
+            Arrays.fill(i,0);
         
-        return memo(0,1,prices,dp,fee);
+        for(int idx = prices.length-1;idx>=0;idx--){
+               
+            dp[idx][1] = Math.max((-prices[idx]+dp[idx+1][0]),dp[idx+1][1]);
+
+            dp[idx][0] = Math.max((prices[idx]-fee+dp[idx+1][1]),dp[idx+1][0]);
+                
+        }
+        
+        return dp[0][1];
         
     }
 }
