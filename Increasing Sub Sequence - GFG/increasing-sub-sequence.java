@@ -25,13 +25,23 @@ class Solution{
     }
     
     static int maxLength(String S){
-        int dp[][] = new int[S.length()][S.length()];
+        int dp[][] = new int[S.length()+1][S.length()+1];
         
-        for(int i[]:dp) Arrays.fill(i,-1);
+        for(int i[]:dp) Arrays.fill(i,0);
         
+        for(int i = S.length()-1;i>=0;i--){
+            for(int prev = i-1;prev >= -1;prev--){
+                int ntake = 0+ dp[i+1][prev+1];
+                int take = 0;
+                if(prev == -1 || S.charAt(i) > S.charAt(prev)){
+                    take = 1+dp[i+1][i+1];
+                }
+                
+                dp[i][prev+1] = Math.max(take,ntake);
+            }
+        }
         
-        return memo(0,-1,S,dp);
-        
+        return dp[0][-1+1];
     }
 }
 
