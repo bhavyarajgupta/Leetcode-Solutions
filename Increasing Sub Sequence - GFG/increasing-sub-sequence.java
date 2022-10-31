@@ -27,27 +27,22 @@ class Solution{
     static int maxLength(String S){
         // int dp[][] = new int[S.length()+1][S.length()+1];
         
-        int next[] = new int[S.length()+1];
-        int curr[] = new int[S.length()+1];
+        int dp[] = new int[S.length()+1];
         
-        Arrays.fill(next,0);
-        Arrays.fill(curr,0);
         
-        for(int i = S.length()-1;i>=0;i--){
-            for(int prev = i-1;prev >= -1;prev--){
-                int ntake = 0+ next[prev+1];
-                int take = 0;
-                if(prev == -1 || S.charAt(i) > S.charAt(prev)){
-                    take = 1+next[i+1];
+        Arrays.fill(dp,1);
+    
+        int maxi = 1;
+        for(int i = 0 ;i<=S.length()-1;i++){
+            for(int prev = 0;prev <= i-1;prev++){
+                if(S.charAt(prev) < S.charAt(i) ){
+                    dp[i] = Math.max(dp[i],1+dp[prev]);
                 }
-                
-                curr[prev+1] = Math.max(take,ntake);
             }
-            
-            next = curr;
+            maxi = Math.max(dp[i],maxi);
         }
         
-        return next[-1+1];
+        return maxi;
     }
 }
 
