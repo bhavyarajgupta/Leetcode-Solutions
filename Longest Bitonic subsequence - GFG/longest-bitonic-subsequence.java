@@ -37,7 +37,7 @@ class Solution
         int dp1[] = new int[nums.length];
         Arrays.fill(dp1,1);
         
-      
+        //Increasing Subsequence
         for(int i =0 ;i<nums.length;i++){
             for(int prev = 0; prev < i;prev++){
                 if( nums[prev] < nums[i]  && 1+dp1[prev] > dp1[i]  ){
@@ -50,6 +50,7 @@ class Solution
         int dp2[] = new int[nums.length];
         Arrays.fill(dp2,1);
         
+        //Decreasing Subsequence
         for(int i =nums.length-1; i>=0;i--){
             for(int prev = nums.length-1; prev > i;prev--){
                 if( nums[prev] < nums[i]  && 1+dp2[prev] > dp2[i]  ){
@@ -59,6 +60,8 @@ class Solution
             
         }
         
+        
+        //Bitonic subsequence increasing + decreasing - 1
         int maxi = 0;
         for(int i=0;i<nums.length;i++){
             maxi = Math.max(maxi,dp1[i]+dp2[i]-1);
