@@ -1,31 +1,35 @@
-
 class Solution {
+    static List<Integer> res;
+    static int dp[];
     public List<Integer> largestDivisibleSubset(int[] nums) {
-        int[] lis = new int[nums.length];
-        int[] hash = new int[nums.length];
-        Arrays.fill(hash, -1);
         Arrays.sort(nums);
-        int maxIdx = 0;
-        for(int i=1; i<nums.length; ++i){
-            for(int j=0; j<i; ++j){
-                if(nums[i]%nums[j] == 0 && lis[j]+1 > lis[i]){
-                    lis[i] = lis[j]+1;
-                    hash[i] = j;
-                    if(lis[maxIdx] < lis[i])
-                        maxIdx = i;
-                }
-            }
-        }
-        
-        return buildSeq(nums, hash, maxIdx);
+        dp=new int[nums.length+1];
+        List<Integer> ans=new ArrayList<>();
+        res=new ArrayList<>();
+        Arrays.fill(dp,-1);
+        solve(nums,0,1,ans);
+        return res;
     }
     
-    public List<Integer> buildSeq(int[] nums, int[] lis, int idx){
-        List<Integer> seq = new ArrayList<>();
-        while(idx >=0){
-            seq.add(nums[idx]);
-            idx = lis[idx];
+    static void solve(int nums[], int i, int prev,List<Integer> ans){
+        
+        if(i>=nums.length) {
+            if(ans.size()>res.size()){
+                res.clear();
+                res.addAll(ans);
+            }
+            return;
         }
-        return seq;
+        // taking condition.....
+        
+        if(ans.size()>dp[i] && (nums[i]%prev==0 || prev%nums[i]==0)){
+            dp[i]=ans.size();
+            ans.add(nums[i]);
+            solve(nums,i+1,nums[i],ans);
+            ans.remove(ans.size()-1);
+        }
+        //not taking condition.....
+        
+        solve(nums,i+1,prev,ans);  
     }
 }
