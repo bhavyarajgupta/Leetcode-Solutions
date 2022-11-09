@@ -12,17 +12,29 @@ class Solution
         }
         return dp[i][j]=ans;
     }
-    public int maxCoins(int[] nums) 
-    {
-        int[] ref=new int[nums.length+2];
-        ref[0]=1;
-        ref[ref.length-1]=1;
-        for(int i=0;i<nums.length;i++)
-        {
-            ref[i+1]=nums[i];
+    
+    
+    public int maxCoins(int[] nums) {
+        int n = nums.length;
+        //convert nums to points with added start and end
+        int[] points = new int[n + 2];
+        
+        points[0] = points[n + 1] = 1;
+        for (int i = 1; i <= n; i++) {
+            points[i] = nums[i - 1];
         }
-        int[][] dp=new int[nums.length+2][nums.length+2];
-        for(int[] i : dp)  Arrays.fill(i,-1);
-        return fun(1,nums.length,ref,dp);
+
+        int[][] dp = new int[n+2][n+2];
+        
+        //calculate from the tail.
+        for(int i = n; i >= 0; i--) {
+            for(int j = i+1; j < n+2; j++) {
+                for(int k = i+1; k < j; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + points[i] * points[k] * points[j]);
+                }
+            }
+        }
+         //1...n as the requried ballons that need to be burst
+        return dp[0][n+1];   
     }
 }
