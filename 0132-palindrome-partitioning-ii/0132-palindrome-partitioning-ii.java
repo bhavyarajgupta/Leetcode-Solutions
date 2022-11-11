@@ -39,12 +39,26 @@ class Solution {
     }
     
     public int minCut(String s) {
-        int dp[] = new int[s.length()];
+        int dp[] = new int[s.length()+1];
         
+        dp[s.length()] = 0;
         
-        Arrays.fill(dp,-1);
+        for(int i = s.length()-1;i>=0;i--){
+            
+            int mincost = Integer.MAX_VALUE;
         
+            for(int j=i;j<s.length();j++){
+
+                if(isPalindrome(i,j,s) == true)
+                {
+                    int cost = 1 + memocuts(j+1,s,dp);     
+                    mincost = Math.min(mincost,cost);
+                }
+            }
+            dp[i] = mincost;
+            
+        }
         
-        return memocuts(0,s,dp)-1;
+        return dp[0]-1;
     }
 }
